@@ -6,7 +6,12 @@ import {useNavigate} from 'react-router-dom'
 import {allTablesPath} from '../globals/Routes.jsx'
 
 const HomePage = () => {
-    let {getAllBasesApi, get_all_bases_loading, get_all_bases_success, bases} = useAirtableApiContext()
+    let {
+        getAllBasesApi,
+        get_all_bases_loading,
+        get_all_bases_success,
+        bases
+    } = useAirtableApiContext()
     let navigate = useNavigate()
 
     useEffect(() => {

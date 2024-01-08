@@ -3,8 +3,8 @@ import {Button, InputAdornment, Stack, TextField} from '@mui/material'
 import {ClearInput} from '../globals/AirtableIcons.jsx'
 import {fetchFromLocalStorage, saveToLocalStorage} from '../globals/GlobalFunctions.jsx'
 import {AirtableDialog} from '../components/ImportComponents.jsx'
-import {useLocation, useNavigate} from "react-router-dom";
-import {homePath} from "../globals/Routes.jsx";
+import {useLocation, useNavigate} from 'react-router-dom'
+import {homePath} from '../globals/Routes.jsx'
 
 const DialogContext = React.createContext()
 
