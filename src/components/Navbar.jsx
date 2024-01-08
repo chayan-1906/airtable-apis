@@ -1,22 +1,21 @@
-import {AppBar, Avatar, Button, IconButton, InputAdornment, Stack, TextField, Toolbar, Typography} from '@mui/material'
+import {AppBar, Avatar, IconButton, Stack, Toolbar, Typography} from '@mui/material'
 import Logo from '../assets/airtable.png'
 import {useEffect, useState} from 'react'
 import theme from '../Theme.jsx'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import {allTablesPath, errorPath, homePath} from '../globals/Routes.jsx'
-import {ClearInput, KeyRounded} from '../globals/AirtableIcons.jsx'
-import {AirtableDialog} from './ImportComponents.jsx'
-import {fetchFromLocalStorage, saveToLocalStorage} from '../globals/GlobalFunctions.jsx'
+import {KeyRounded} from '../globals/AirtableIcons.jsx'
+import {useDialogContext} from '../contexts/ImportContexts.jsx'
 
 const Navbar = () => {
     const [title, setTitle] = useState('')
-    const [openModal, setOpenModal] = useState(false)
-    const [pat, setPat] = useState(fetchFromLocalStorage({key: 'pat'}))
 
     let location = useLocation()
     let {baseId} = useParams()
     let navigate = useNavigate()
     let current_url = location.pathname
+
+    let {openDialog} = useDialogContext()
 
     useEffect(() => {
         // printInConsole(`current_url: ${current_url}`)
@@ -37,56 +36,11 @@ const Navbar = () => {
                 </Stack>
                 {
                     (location.pathname === homePath || location.pathname === errorPath) &&
-                    <IconButton onClick={() => {
-                        setPat(fetchFromLocalStorage({key: 'pat'}))
-                        setOpenModal(true)
-                    }}>
+                    <IconButton onClick={() => openDialog()}>
                         <KeyRounded/>
                     </IconButton>
                 }
             </Toolbar>
-            <AirtableDialog
-                open={openModal}
-                setOpen={() => setOpenModal(false)}
-                title='Change PAT'
-                content={
-                    <TextField
-                        value={pat}
-                        fullWidth
-                        placeholder='Enter a PAT...'
-                        onChange={(e) => setPat(e.target.value)}
-                        InputProps={{
-                            endAdornment: pat &&
-                                <InputAdornment position='end'>
-                                    <ClearInput onClick={() => setPat('')}/>
-                                </InputAdornment>
-                        }}
-                    />
-                }
-                actions={
-                    <Stack direction='row' p={2} gap={2} justifyContent='center'>
-                        <Button variant='outlined' color='error' onClick={() => {
-                            setPat('')
-                            setOpenModal(false)
-                        }}>Cancel</Button>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            disabled={!pat}
-                            onClick={() => {
-                                saveToLocalStorage({'key': 'pat', 'value': pat})
-                                setOpenModal(false)
-                                if (current_url === homePath) {
-                                    window.location.reload()
-                                } else {
-                                    navigate(homePath)
-                                }
-                            }}>
-                            Save
-                        </Button>
-                    </Stack>
-                }
-            />
         </AppBar>
     )
 }

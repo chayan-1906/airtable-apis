@@ -1,7 +1,9 @@
-import {AirtableApiProvider} from './AirtableApiContext.jsx'
-import {useAirtableApiContext} from './AirtableApiContext.jsx'
+import {useAirtableApiContext, AirtableApiProvider} from './AirtableApiContext.jsx'
+import {useDialogContext, DialogProvider} from "./DialogContext.jsx";
 
 export {
     AirtableApiProvider,
-    useAirtableApiContext
+    useAirtableApiContext,
+    DialogProvider,
+    useDialogContext,
 }
