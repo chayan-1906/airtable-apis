@@ -1,6 +1,6 @@
 # Airtable APIs
 
-https://airtable-apis.pages.dev/
+### [Live Site (Cloudflare)](https://airtable-apis.pages.dev/)
 
 ## Dependencies
 * [**_Airtable_**](https://www.npmjs.com/package/airtable)
